@@ -5,7 +5,7 @@ use std::path::Path;
 pub fn main() {
     let mut total = 0;
 
-    if let Ok(lines) = read_lines("./inputs/day_1") {
+    if let Ok(lines) = read_lines("src/inputs/day_1") {
         for line in lines.flatten() {
             if let Some((first_digit, last_digit)) = extract_digits(&line) {
                 let calibration_value = combine_digits(first_digit, last_digit);
