@@ -1,6 +1,9 @@
 /target
+/debug
 
 /src/inputs/*
 !*_test
+
+Cargo.lock
 
 *.swp
