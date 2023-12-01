@@ -2,8 +2,10 @@
 /debug
 
 /src/inputs/*
-!*_test
+!**/*_test
 
 Cargo.lock
+
+**/*.rs.bk
 
 *.swp
