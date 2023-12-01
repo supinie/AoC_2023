@@ -1,1 +1,6 @@
 /target
+
+/src/inputs/*
+!*_test
+
+*.swp
