@@ -42,39 +42,44 @@ fn part_1() {
 }
 
 
+fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
+where P: AsRef<Path>, {
+    let file = File::open(filename)?;
+    Ok(io::BufReader::new(file).lines())
+}
+
 fn convert_ascii_to_digit(line: &str) -> Option<String> {
-    let words_to_digits: HashMap<&str, &str> = HashMap::from([
-        ("zero", "0"),
-        ("one", "1"),
-        ("two", "2"),
-        ("three", "3"),
-        ("four", "4"),
-        ("five", "5"),
-        ("six", "6"),
-        ("seven", "7"),
-        ("eight", "8"),
-        ("nine", "9"),
+    let words_to_digits = HashMap::from([
+        ("zero", 0),
+        ("one", 1),
+        ("two", 2),
+        ("three", 3),
+        ("four", 4),
+        ("five", 5),
+        ("six", 6),
+        ("seven", 7),
+        ("eight", 8),
+        ("nine", 9),
     ]);
     let mut converted_line = String::from("");
     let mut current_word = String::from("");
 
     for c in line.chars() {
+        if c.is_ascii_digit() {
+            converted_line.push(c);
+            continue;
+        }
         current_word.push(c);
-        if words_to_digits.contains_key(current_word.as_str()) {
-            if let Some(digit) = words_to_digits.get(current_word.as_str()) {
-                converted_line.push_str(&digit);
+        for key in words_to_digits.keys() {
+            if current_word.contains(key) {
+                if let Some(digit) = words_to_digits.get(key) {
+                    converted_line.push_str(&(digit.to_string()));
+                    current_word = String::from(c);
+                }
             }
         }
     }
-
     Some(converted_line)
-}
-
-
-fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
-where P: AsRef<Path>, {
-    let file = File::open(filename)?;
-    Ok(io::BufReader::new(file).lines())
 }
 
 
