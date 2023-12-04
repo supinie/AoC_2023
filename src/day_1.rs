@@ -5,9 +5,28 @@ use std::collections::HashMap;
 
 
 pub fn main() {
+    println!("DAY 1:");
     part_1();
     part_2();
+    println!("------------");
 }
+
+
+fn part_1() {
+    let mut total = 0;
+
+    if let Ok(lines) = read_lines("src/inputs/day_1") {
+        for line in lines.flatten() {
+            if let Some((first_digit, last_digit)) = extract_digits(&line) {
+                let calibration_value = combine_digits(first_digit, last_digit);
+                total += calibration_value;
+            }
+        }
+    }
+
+    println!("Part 1 Answer: {}", total);
+}
+
 
 fn part_2() {
     let mut total = 0;
@@ -23,22 +42,7 @@ fn part_2() {
         }
     }
 
-    println!("Answer: {}", total);
-}
-
-fn part_1() {
-    let mut total = 0;
-
-    if let Ok(lines) = read_lines("src/inputs/day_1") {
-        for line in lines.flatten() {
-            if let Some((first_digit, last_digit)) = extract_digits(&line) {
-                let calibration_value = combine_digits(first_digit, last_digit);
-                total += calibration_value;
-            }
-        }
-    }
-
-    println!("Answer: {}", total);
+    println!("Part 2 Answer: {}", total);
 }
 
 
